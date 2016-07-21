@@ -8,9 +8,13 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
+    @post = Post.new
+    @post.title = "Processing..." 
+    @post.text = "Processing..."
+    @title = params[:post][:title]
+    @text = params[:post][:text]
     if @post.save
-      sleep 10
+      Post.delay.deliver(@post.id, @title, @text)
       redirect_to root_path
     else
       render :new
