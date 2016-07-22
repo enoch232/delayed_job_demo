@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  before_action :post_find, only: [:destroy]
   def index
     @posts = Post.all
   end
@@ -28,9 +29,14 @@ class PostsController < ApplicationController
   end
 
   def destroy
+    @post.destroy
+    redirect_to root_path
   end
   private
   def post_params
     params.require(:post).permit(:title, :text)
+  end
+  def post_find
+    @post = Post.find(params[:id])
   end
 end

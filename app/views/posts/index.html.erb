@@ -9,7 +9,8 @@
 	<div>
 		<%= post.title %>
 		<br>
-		<%= post.text %>
+		<%= post.text %> <%= link_to "Delete", post, method: :delete, confirm: {data: "are you sure?"} %>
+		
 	</div>
 	<br>
 	<% end %>
